@@ -1,0 +1,171 @@
+package docComments;
+/**
+ * 
+ * Main program to run list of consoles within Array
+ * @author Creed W
+ * 
+ */
+import java.util.ArrayList;
+import java.util.Scanner;
+public class ConsoleList {
+	
+	
+	/**
+	 * 
+	 * main portion of program with arrayList of consoles.
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		Scanner input = new Scanner(System.in);
+		ArrayList<GameConsoles> consoles = new ArrayList<>();
+			consoles.add(new GameConsoles("New", "Microsoft", "Xbox One"));
+			consoles.add(new GameConsoles("New", "Sony", "Playstation 5"));
+			consoles.add(new GameConsoles("Used", "Nintendo", "Wii"));
+			consoles.add(new GameConsoles("New", "Nintendo", "Switch"));
+			
+			
+	}//mainEND
+	
+int selection;
+	
+	/**
+	 * 
+	 * Interactive portion of menu to read user's input
+	 * @param selection
+	 */
+	public void menuSelection() {
+		Scanner input = new Scanner(System.in);
+		do {
+			menuPrompt();
+			selection = input.nextInt();
+			switch(selection) {
+				case 1:
+					listAllConsoles(consoles);
+					break;
+				case 2:
+					addConsole(consoles, input);
+					break;
+				case 3:
+					findConsoles(consoles, input);
+					break;
+				case 4:
+					removeConsole(consoles);
+					break;
+				case 5:
+					listAmount(consoles);
+					break;
+				case 6:
+					System.out.println("Goodbye");
+					break;
+				default:
+					System.out.println("Enter a selection 1-6");
+					break;					
+			}
+			
+		}
+		while (selection!=6);
+	}
+	
+	/**
+	 * 
+	 * Menu that is shown to user
+	 * 
+	 */
+	public void menuPrompt() {
+		System.out.printf("%-25s%n", "1. Show all devices");
+		System.out.printf("%-25s%n", "2. Add a devices");
+		System.out.printf("%-25s%n", "3. Find a device");
+		System.out.printf("%-25s%n", "4. Delete a device");
+		System.out.printf("%-25s%n", "5. Number of devices");
+		System.out.printf("%-25s%n", "6. Exit");
+		System.out.printf("%-25s%n", "Enter your selection: ");
+	}
+
+	/**
+	 * Lists the amount of elements in arrayList
+	 * @param consoles
+	 */
+	private static void listAmount(ArrayList<GameConsoles> consoles) {
+		System.out.println("Numbers of consoles: "+ consoles.size());
+		
+	}
+	
+	/**
+	 * removes console from arrayList via i
+	 * @param consoles
+	 */
+	private static void removeConsole(ArrayList<GameConsoles> consoles) {
+		Scanner input = new Scanner(System.in);
+		System.out.println("Console ID you want to remove: ");
+		int id = input.nextInt();
+		input.nextLine();
+		
+		boolean found = false;
+		for(int i=0; i<consoles.size();i++) {
+			GameConsoles g = consoles.get(i);
+			if(g.getId()==id);{
+				consoles.remove(i);
+				System.out.println("Removed");
+				found = true;
+				break;
+			}
+		}
+		if(!found)
+			System.out.println("No console with id "+id+"could be found.");
+	}
+	
+	/**
+	 * finds a particular console via ID
+	 * @param consoles
+	 */
+	private static void findConsoles(ArrayList<GameConsoles> consoles) {
+		Scanner input = new Scanner(System.in);
+		System.out.println("Console ID: ");
+		int id = input.nextInt();
+		input.nextLine();
+		
+		boolean found = false;
+		for (int i=0; i < consoles.size(); i++) {
+			GameConsoles g = consoles.get(i);
+			if(g.getId()==id); {
+				System.out.println(g);
+				found = true;
+				break;
+			}
+			
+		}
+		if(!found)
+		System.out.println("No console with id "+id+"could be found.");
+	}
+
+		/**
+		 * Adds a console to the arrayList
+		 * @param consoles
+		 * @param input
+		 */
+	private static void addConsole(ArrayList<GameConsoles> consoles, Scanner input) {
+		System.out.println("Console Quality: ");
+		String consoleQuality = input.nextLine();
+		System.out.println("Company: ");
+		String companyName = input.nextLine();
+		System.out.println("Model: ");
+		String modelName = input.nextLine();
+		GameConsoles newGameConsoles =new GameConsoles(consoleQuality, companyName, modelName);
+		consoles.add(newGameConsoles);
+		
+		
+	}
+	
+	/**
+	 * 
+	 * lists all consoles and information of consoles within arrayList
+	 * @param consoles
+	 */
+	private static void listAllConsoles(ArrayList<GameConsoles> consoles) {
+		   for(GameConsoles d : consoles) {
+	            System.out.println(d);
+	        }
+	        System.out.println();
+		
+	}
+}//classEND
